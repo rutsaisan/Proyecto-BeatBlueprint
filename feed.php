@@ -184,4 +184,13 @@
                         <p class="text-xs text-gray-400">3:45</p>
                     </div>
                 </div>
-                <i class="fas fa
+
+<?php
+session_start();
+
+// Si no existe la variable de sesión 'loggedin', redirigir al login
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: index.php");
+    exit;
+}
+?>

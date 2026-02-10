@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/estilo.css">
     <style>
-        /* Adaptamos la letra del error al estilo Quicksand */
         .error-message {
             color: #ff4d4d;
             font-family: 'Quicksand', sans-serif;
@@ -47,5 +45,4 @@
         </div>
     </div>
 </body>
-
 </html>
