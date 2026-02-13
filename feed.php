@@ -1,9 +1,32 @@
+<?php
+// 1. INICIAR SESIÓN
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// 2. VERIFICAR LOGIN (Seguridad)
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: index.php");
+    exit;
+}
+
+include "includes/config.php";
+
+// 3. OBTENER ID DEL USUARIO ACTUAL
+// Ya no hay redirección. Seas quien seas (ID 1, 2 o 50), verás tus libros.
+if (isset($_SESSION['id'])) {
+    $usuario_id = $_SESSION['id'];
+} else {
+    // Fallback por seguridad si la sesión 'id' no está definida
+    $usuario_id = 1; 
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beat Blueprint - App</title>
+    <title>Beat Blueprint</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
@@ -130,29 +153,29 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 mt-auto mb-6">
-            <div onclick="navigate('screen-music')" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-purple-500">
-                <i class="fas fa-music text-3xl text-purple-400"></i>
-                <span class="font-medium text-sm">Música</span>
-            </div>
-            
-            <div onclick="navigate('screen-canvas')" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-blue-500">
-                <i class="fas fa-map-marker-alt text-3xl text-blue-400"></i>
-                <span class="font-medium text-sm">Posiciones</span>
-            </div>
+    <a href="musica.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-purple-500">
+        <i class="fas fa-music text-3xl text-purple-400"></i>
+        <span class="font-medium text-sm">Música</span>
+    </a>
+    
+    <a href="posiciones.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-blue-500">
+        <i class="fas fa-map-marker-alt text-3xl text-blue-400"></i>
+        <span class="font-medium text-sm">Posiciones</span>
+    </a>
 
-            <div onclick="navigate('screen-video')" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-pink-500">
-                <i class="fas fa-play-circle text-3xl text-pink-400"></i>
-                <span class="font-medium text-sm">Biblioteca</span>
-            </div>
+    <a href="vidioteca.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-pink-500">
+        <i class="fas fa-play-circle text-3xl text-pink-400"></i>
+        <span class="font-medium text-sm">Vidioteca</span>
+    </a>
 
-            <div onclick="navigate('screen-wiki')" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-yellow-500">
-                <i class="fas fa-book text-3xl text-yellow-400"></i>
-                <span class="font-medium text-sm">Wiki Pasos</span>
-            </div>
-        </div>
+    <a href="wiki.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-yellow-500">
+        <i class="fas fa-book text-3xl text-yellow-400"></i>
+        <span class="font-medium text-sm">Wiki Pasos</span>
+    </a>
+</div>
         
         <div class="text-center pb-4">
-             <a href="index.html" class="text-gray-400 text-xs hover:text-white">Cerrar Sesión</a>
+             <a href="index.php" class="text-gray-400 text-xs hover:text-white">Cerrar Sesión</a>
         </div>
     </div>
 
@@ -194,3 +217,4 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit;
 }
 ?>
+</body>
