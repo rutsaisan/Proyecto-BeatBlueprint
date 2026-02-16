@@ -1,24 +1,41 @@
 <?php
-// 1. INICIAR SESIÓN
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// 2. VERIFICAR LOGIN (Seguridad)
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: index.php");
     exit;
 }
 
 include "includes/config.php";
+$usuario_id = $_SESSION['id'] ?? 1;
 
-// 3. OBTENER ID DEL USUARIO ACTUAL
-// Ya no hay redirección. Seas quien seas (ID 1, 2 o 50), verás tus libros.
-if (isset($_SESSION['id'])) {
-    $usuario_id = $_SESSION['id'];
-} else {
-    // Fallback por seguridad si la sesión 'id' no está definida
-    $usuario_id = 1; 
+// --- CONSULTA PARA LA ÚLTIMA CANCIÓN (AHORA PRIVADA) ---
+// Filtramos por el usuario de la sesión para que no salgan datos de otros
+$sql_cancion = "SELECT nombre_cancion, created_at FROM Canciones WHERE id_usuario = ? ORDER BY id_cancion DESC LIMIT 1";
+$stmt_cancion = $conexion->prepare($sql_cancion);
+$stmt_cancion->bind_param("i", $usuario_id);
+$stmt_cancion->execute();
+$res_cancion = $stmt_cancion->get_result();
+$ultima_cancion = $res_cancion->fetch_assoc();
+
+// --- CONSULTA PARA EL ÚLTIMO VIDEO (ESPECÍFICO DEL USUARIO) ---
+$sql_video = "SELECT descripcion, created_at FROM Videos WHERE id_usuario = ? ORDER BY id_video DESC LIMIT 1";
+$stmt_video = $conexion->prepare($sql_video);
+$stmt_video->bind_param("i", $usuario_id);
+$stmt_video->execute();
+$res_video = $stmt_video->get_result();
+$ultimo_video = $res_video->fetch_assoc();
+
+// Función auxiliar para formatear fechas relativas
+function haceCuanto($fecha) {
+    if(!$fecha) return "No hay actividad";
+    $timestamp = strtotime($fecha);
+    $diferencia = time() - $timestamp;
+    if ($diferencia < 3600) return "Hace poco";
+    if ($diferencia < 86400) return "Hoy";
+    return date("d/m", $timestamp);
 }
 ?>
 <!DOCTYPE html>
@@ -129,28 +146,41 @@ if (isset($_SESSION['id'])) {
             </div>
         </div>
 
-        <div class="glass-card p-4 mb-8 flex-grow">
-            <h3 class="text-gray-300 text-sm mb-3 border-b border-gray-600 pb-2">Tus últimas actividades</h3>
-            <div class="space-y-3">
-                <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
-                    <div class="bg-blue-500/20 p-2 rounded text-blue-400"><i class="fas fa-music"></i></div>
-                    <div>
-                        <p class="font-semibold text-sm">Hip Hop Mix 2025</p>
-                        <p class="text-xs text-gray-400">Añadido ayer</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
-                    <div class="bg-green-500/20 p-2 rounded text-green-400"><i class="fas fa-video"></i></div>
-                    <div>
-                        <p class="font-semibold text-sm">Ensayo Jueves</p>
-                        <p class="text-xs text-gray-400">Video subido</p>
-                    </div>
-                </div>
-                <div class="bg-purple-900/30 p-3 rounded-lg text-center mt-4">
-                    <p class="text-sm text-purple-200">Próxima clase: Martes 18:00</p>
+            <div class="glass-card p-4 mb-8 flex-grow">
+        <h3 class="text-gray-300 text-sm mb-3 border-b border-gray-600 pb-2">Tus últimas actividades</h3>
+        <div class="space-y-3">
+            
+            <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
+                <div class="bg-blue-500/20 p-2 rounded text-blue-400"><i class="fas fa-music"></i></div>
+                <div>
+                    <p class="font-semibold text-sm">
+                        <?php echo $ultima_cancion ? $ultima_cancion['nombre_cancion'] : "Sin canciones"; ?>
+                    </p>
+                    <p class="text-xs text-gray-400">
+                        <?php echo $ultima_cancion ? "Añadida: " . haceCuanto($ultima_cancion['created_at']) : "Sube tu primer track"; ?>
+                    </p>
                 </div>
             </div>
+
+            <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
+                <div class="bg-green-500/20 p-2 rounded text-green-400"><i class="fas fa-video"></i></div>
+                <div>
+                    <p class="font-semibold text-sm">
+                        <?php echo $ultimo_video ? $ultimo_video['descripcion'] : "Sin videos nuevos"; ?>
+                    </p>
+                    <p class="text-xs text-gray-400">
+                        <?php echo $ultimo_video ? "Subido: " . haceCuanto($ultimo_video['created_at']) : "Registra tu ensayo"; ?>
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-purple-900/30 p-3 rounded-lg text-center mt-4">
+                <p id="frase-display" class="text-sm text-purple-200">
+                    Cargando inspiración...
+                </p>
+            </div>
         </div>
+    </div>
 
         <div class="grid grid-cols-2 gap-4 mt-auto mb-6">
     <a href="musica.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-purple-500">
@@ -218,3 +248,35 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 ?>
 </body>
+<script>
+    // Tu lista de frases personalizada
+    const frasesDanza = [
+        "La danza es el lenguaje oculto del alma.",
+        "No intentes bailar mejor que nadie. Intenta bailar mejor que tú mismo.",
+        "Si puedes hablar, puedes cantar. Si puedes caminar, puedes bailar.",
+        "La técnica es solo la base; la pasión es lo que te hace volar.",
+        "El baile es una forma de llegar a la libertad.",
+        "Tu cuerpo es tu instrumento, mantenlo afinado.",
+        "En el escenario no hay errores, solo nuevas oportunidades de improvisar.",
+        "La vida no consiste en esperar a que pase la tormenta, sino en aprender a bailar bajo la lluvia.",
+        "Baila como si nadie te estuviera mirando.",
+        "La danza es el reflejo de lo que el cuerpo convierte en arte.",
+        "Hay atajos para la felicidad, y el baile es uno de ellos."
+    ];
+
+    function generarFrase() {
+        const display = document.getElementById('frase-display');
+        
+        // Generamos un índice aleatorio basado en la longitud del array
+        const indiceAleatorio = Math.floor(Math.random() * frasesDanza.length);
+        
+        // Mostramos la frase
+        display.innerText = `"${frasesDanza[indiceAleatorio]}"`;
+    }
+
+    // Ejecutamos la función al cargar la página
+    window.onload = function() {
+        generarFrase();
+        // Si tienes más funciones que se cargan al inicio, asegúrate de llamarlas aquí también
+    };
+</script>

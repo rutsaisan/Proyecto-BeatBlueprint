@@ -98,13 +98,83 @@
                     <img src="img/pasos/Bounce.png" alt="Bounce" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
                 </div>
                 <div class="w-full md:w-1/2">
-                    <span class="text-purple-500 font-bold text-sm tracking-widest uppercase">Básico</span>
+                    
                     <h2 class="text-4xl font-bold mt-2 mb-4">Bounce</h2>
+                    <span class="text-purple-500 font-bold text-sm tracking-widest uppercase">Básico</span>
                     <p class="text-gray-400 leading-relaxed text-lg">
                         Es el movimiento de muelleo (arriba y abajo) flexionando las rodillas. Es la base para mantener el tiempo.
                         Imagina que tienes muelles en las rodillas. Con los pies un poco más abiertos que el ancho de tus hombros, deja caer el peso relajando las rodillas rítmicamente. El cuerpo debe ir hacia abajo (down-bounce). No es un salto, es un peso muerto que rebota.
                     </p><br>
                     <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtube.com/shorts/ZgYi0VKDtCM?si=yD5CdUA6_2TACu-R" target="_blank">
+                        <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
+                    </a>
+                </div>
+            </section>
+            <section class="flex flex-col md:flex-row items-center gap-12 group">
+                <div class="w-full md:w-1/2 aspect-video rounded-3xl overflow-hidden glass-card">
+                    <img src="img/pasos/Rocking.png" alt="Rocking" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                </div>
+                <div class="w-full md:w-1/2">
+                    
+                    <h2 class="text-4xl font-bold mt-2 mb-4">Rocking</h2>
+                    <span class="text-purple-500 font-bold text-sm tracking-widest uppercase">Básico</span>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        Un balanceo del torso de adelante hacia atrás, similar al movimiento que se hace de forma natural al escuchar música.Imagina que alguien te empuja suavemente el pecho hacia atrás y luego tú recuperas la posición. El movimiento nace del torso y la pelvis, creando una onda constante que te ayuda a fluir entre pasos.
+                    </p><br>
+                    <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtu.be/ee_haw0JyO4?si=bFRocsi-pH0k-fL1">
+                        <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
+                    </a>
+                </div>
+            </section>
+            <section class="flex flex-col md:flex-row items-center gap-12 group">
+                <div class="w-full md:w-1/2 aspect-video rounded-3xl overflow-hidden glass-card">
+                    <img src="img/pasos/The Mouse.png" alt="The Mouse" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                </div>
+                <div class="w-full md:w-1/2">
+                    
+                    <h2 class="text-4xl font-bold mt-2 mb-4">The Mouse</h2>
+                    <span class="text-purple-500 font-bold text-sm tracking-widest uppercase">Básico</span>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        Junta un poco los pies. El movimiento consiste en mover los talones hacia afuera y luego las puntas hacia afuera de forma muy rápida y pequeña, como si tus pies "corrieran" por el suelo de lado a lado sin despegarse apenas de él. Se ve muy nervioso y ágil.
+                    </p><br>
+                    <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtu.be/m-qE7irNMFY">
+                        <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
+                    </a>
+                </div>
+            </section>
+            <section class="flex flex-col md:flex-row items-center gap-12 group">
+                <div class="w-full md:w-1/2 aspect-video rounded-3xl overflow-hidden glass-card">
+                    <img src="img/pasos/Running Man.png" alt="Running Man" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                </div>
+                <div class="w-full md:w-1/2">
+                    
+                    <h2 class="text-4xl font-bold mt-2 mb-4">Running Man</h2>
+                    <span class="text-purple-500 font-bold text-sm tracking-widest uppercase">Básico</span>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        La clave es el deslizamiento. Mientras una rodilla sube, el pie que está en el suelo se desliza hacia atrás. Al bajar el pie que estaba arriba, el otro vuelve al centro.<br>
+                        1.- Sube una rodilla a la altura de la cadera.<br>
+
+                        2.- Mientras bajas ese pie al suelo, el otro pie (el que estaba apoyado) debe deslizarse hacia atrás.<br>
+
+                        3.- Ahora sube la otra rodilla y repite. Parece que corres, pero te quedas en el sitio.<br>
+                    </p><br>
+                    <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtu.be/Qq5snba5Ji4?si=XB_hStWtgkbuEQV1">
+                        <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
+                    </a>
+                </div>
+            </section>
+            <section class="flex flex-col md:flex-row items-center gap-12 group">
+                <div class="w-full md:w-1/2 aspect-video rounded-3xl overflow-hidden glass-card">
+                    <img src="img/pasos/Criss Cross.png" alt="Criss Cross" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                </div>
+                <div class="w-full md:w-1/2">
+                    
+                    <h2 class="text-4xl font-bold mt-2 mb-4">Criss Cross</h2>
+                    <span class="text-purple-500 font-bold text-sm tracking-widest uppercase">Básico</span>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        es un salto rítmico que consiste en abrir y cerrar las piernas alternativamente: en el primer pulso saltas abriendo los pies hacia los lados y, en el segundo, saltas de nuevo cruzando un pie por delante del otro. Es fundamental mantener el peso en las puntas de los pies y coordinar el cruce (derecha delante, abrir, izquierda delante) para crear un efecto visual de tijera constante.
+                    </p><br>
+                    <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtube.com/shorts/qR_itaRdwMc?si=EZSK49656_5IGdZn">
                         <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
                     </a>
                 </div>
