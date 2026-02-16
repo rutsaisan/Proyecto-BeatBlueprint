@@ -172,7 +172,7 @@
                     <h2 class="text-4xl font-bold mt-2 mb-4">Criss Cross</h2>
                     <span class="text-purple-500 font-bold text-sm tracking-widest uppercase">Básico</span>
                     <p class="text-gray-400 leading-relaxed text-lg">
-                        es un salto rítmico que consiste en abrir y cerrar las piernas alternativamente: en el primer pulso saltas abriendo los pies hacia los lados y, en el segundo, saltas de nuevo cruzando un pie por delante del otro. Es fundamental mantener el peso en las puntas de los pies y coordinar el cruce (derecha delante, abrir, izquierda delante) para crear un efecto visual de tijera constante.
+                        Es un salto rítmico que consiste en abrir y cerrar las piernas alternativamente: en el primer pulso saltas abriendo los pies hacia los lados y, en el segundo, saltas de nuevo cruzando un pie por delante del otro. Es fundamental mantener el peso en las puntas de los pies y coordinar el cruce (derecha delante, abrir, izquierda delante) para crear un efecto visual de tijera constante.
                     </p><br>
                     <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtube.com/shorts/qR_itaRdwMc?si=EZSK49656_5IGdZn">
                         <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
@@ -196,7 +196,10 @@
                     <h2 class="text-4xl font-bold mt-2 mb-4">Moonwalk</h2>
                     <p class="text-gray-400 leading-relaxed text-lg">
                         Técnica de deslizamiento que crea la ilusión óptica de que el bailarín se mueve hacia adelante mientras camina hacia atrás. Popularizado por Michael Jackson, requiere un control preciso del peso en los metatarsos.
-                    </p>
+                    </p><br>
+                    <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtube.com/shorts/qR_itaRdwMc?si=EZSK49656_5IGdZn">
+                        <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
+                    </a>
                 </div>
             </section>
         </div>
@@ -216,7 +219,32 @@
                     <h2 class="text-4xl font-bold mt-2 mb-4">Six Step</h2>
                     <p class="text-gray-400 leading-relaxed text-lg">
                         El movimiento fundamental del footwork en el Breaking. Consiste en una secuencia de seis pasos circulares en el suelo, utilizando las manos como apoyo y las piernas para crear una rotación fluida alrededor del eje central.
-                    </p>
+                    </p><br>
+                    <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtube.com/shorts/qR_itaRdwMc?si=EZSK49656_5IGdZn">
+                        <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
+                    </a>
+                </div>
+            </section>
+        </div>
+        <div class="style-section">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="section-badge" style="background: linear-gradient(90deg, #4f8aff, #8A4FFF);">Comercial</span>
+                <div class="h-[1px] flex-grow bg-white/10"></div>
+            </div>
+
+            <section class="flex flex-col md:flex-row-reverse items-center gap-12 group">
+                <div class="w-full md:w-1/2 aspect-video rounded-3xl overflow-hidden glass-card">
+                    <img src="img/pasos/Isolaciones.png" alt="Isolaciones" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <span class="text-purple-500 font-bold text-sm tracking-widest uppercase">Básico</span>
+                    <h2 class="text-4xl font-bold mt-2 mb-4">Isolaciones</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        Imagina que una pared invisible te bloquea todo el cuerpo excepto una parte. Por ejemplo, intenta mover solo el pecho hacia adelante y hacia atrás sin que los hombros se suban ni la cadera se mueva. Es un movimiento "robótico" y limpio.
+                    </p><br>
+                    <a class="text-xs text-purple-400 font-bold uppercase tracking-wider hover:text-white transition" href="https://youtu.be/dzX4eTH0GL0?si=rdT6o5K9GC_NJQiX">
+                        <i class="fas fa-play-circle mr-1"></i> Ver Tutorial
+                    </a>
                 </div>
             </section>
         </div>

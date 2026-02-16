@@ -261,7 +261,21 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         "La vida no consiste en esperar a que pase la tormenta, sino en aprender a bailar bajo la lluvia.",
         "Baila como si nadie te estuviera mirando.",
         "La danza es el reflejo de lo que el cuerpo convierte en arte.",
-        "Hay atajos para la felicidad, y el baile es uno de ellos."
+        "Hay atajos para la felicidad, y el baile es uno de ellos.",
+        "Bailar es alcanzar una palabra que no existe. Cantar una canción de mil generaciones. Sentir el significado de un momento.",
+        "Un bailarín baila porque su sangre baila en sus venas.",
+        "Bailar es la única actividad donde 'perder el paso' es un deporte de riesgo, pero 'perder la cabeza' es lo esperado.",
+        "Un gran bailarín no se define por sus piruetas, sino por cuántas veces se levanta después de una caída.",
+        "La técnica es el mapa, pero la pasión es el destino.",
+        "No bailes para impresionar; baila para expresar lo que las palabras no alcanzan a decir.",
+        "El único mal baile es aquel que no se hizo por miedo a hacer el ridículo.",
+        "Tus pies son las herramientas, pero el ritmo lo dicta tu corazón.",
+        "Si te equivocas en el paso, sonríe y sigue. En el baile, como en la vida, el espectáculo debe continuar.",
+        "Hay momentos que no se pueden explicar, solo se pueden bailar.",
+        "La danza es el único lenguaje universal que no necesita traducción, solo sentimiento.",
+        "No dejes que el miedo a no ser 'perfecto' te robe el placer de moverte.",
+        "Baila por ti, para ti y a pesar de todo.",
+        "La vida es una pista de baile: unos miran, otros critican, pero solo los que se atreven a salir a bailar son los que realmente viven."
     ];
 
     function generarFrase() {
