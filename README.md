@@ -24,31 +24,35 @@ Canvas (Escenario Virtual): Sistema interactivo 2D para el diseño de formacione
 **Diseño**: Glassmorphism con paleta de morados vibrantes y modo oscuro.
 
  ## **📂Estructura del Repositorio**
-Plaintext
-
-└── rutsaisan-proyecto-beatblueprint/
-    ├── README.md               # Documentación del proyecto
-    ├── feed.php                # Dashboard principal tras el login
-    ├── index.php               # Página de inicio / Login
-    ├── musica.php              # Módulo de gestión de audio
-    ├── posiciones.php          # Escenario virtual (Canvas)
-    ├── register.html           # Formulario de registro de usuario
-    ├── vidioteca.php           # Galería de vídeos y ensayos
-    ├── wiki.php                # Base de datos de pasos de baile
-    ├── assets/
-    │   └── css/
-    │       └── estilo.css      # Estilos personalizados adicionales
-    ├── database/
-    │   └── db.sql              # Esquema de la base de datos MySQL
-    ├── includes/
-    │   ├── config.php          # Conexión a la base de datos
-    │   └── register.php        # Lógica de validación de registro
-    └── php/
-        ├── login.php           # Procesamiento de inicio de sesión
-        ├── logout.php          # Cierre de sesión de usuario
-        ├── register.php        # Inserción de usuarios en la DB
-        ├── subir_cancion.php   # Backend para carga de archivos MP3
-        └── subir_video.php     # Backend para carga de archivos de vídeo
+```Plaintext
+📁 rutsaisan-proyecto-beatblueprint/
+├── 📄 README.md                 # Documentación del proyecto
+├── 📄 feed.php                  # Dashboard principal tras el login
+├── 📄 index.php                 # Página de inicio / Login
+├── 📄 musica.php                # Módulo de gestión de audio
+├── 📄 posiciones.php            # Escenario virtual (Canvas)
+├── 📄 register.html             # Formulario de registro de usuario
+├── 📄 vidioteca.php             # Galería de vídeos y ensayos
+├── 📄 wiki.php                  # Base de datos de pasos de baile
+│
+├── 📁 assets/
+│   └── 📁 css/
+│       └── 🎨 estilo.css        # Estilos personalizados adicionales
+│
+├── 📁 database/
+│   └── 🗄️ db.sql                # Esquema de la base de datos MySQL
+│
+├── 📁 includes/
+│   ├── ⚙️ config.php            # Conexión a la base de datos
+│   └── 🧩 register.php          # Lógica de validación de registro
+│
+└── 📁 php/
+    ├── 🔐 login.php             # Procesamiento de inicio de sesión
+    ├── 🚪 logout.php            # Cierre de sesión de usuario
+    ├── 📝 register.php          # Inserción de usuarios en la DB
+    ├── 🎵 subir_cancion.php     # Backend para carga de archivos MP3
+    └── 🎬 subir_video.php       # Backend para carga de archivos de vídeo
+```
         
 ## **📚¿Qué hace cada parte de Beat Blueprint?**
 **Index e Inicio de Sesión**: Es la puerta de entrada que valida que solo usuarios registrados accedan a sus recursos, gestionando errores de acceso.
