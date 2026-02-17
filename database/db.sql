@@ -57,6 +57,9 @@ CREATE TABLE Canciones (
     FOREIGN KEY (id_estilo_baile) REFERENCES Estilo_baile(id_estilo_baile) ON DELETE CASCADE
 );
 
+ALTER TABLE Canciones ADD COLUMN id_usuario INT NOT NULL;
+ALTER TABLE Canciones ADD FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE;
+
 -- crea usuario nuevo con contraseña
 CREATE USER 
 'beatblueprint'@'%' 
@@ -75,3 +78,26 @@ GRANT ALL PRIVILEGES ON `beat_blueprint`.*
 TO 'beatblueprint'@'%';
 -- recarga la tabla de privilegios
 FLUSH PRIVILEGES;
+
+
+USE beat_blueprint;
+
+-- Insertamos los estilos básicos de danza urbana
+INSERT INTO Estilo_baile (nombre_estilo_baile) VALUES 
+('Hip Hop'),
+('Popping'),
+('Locking'),
+('Breaking'),
+('House Dance'),
+('Dancehall'),
+('Afrobeat'),
+('Comercial / Choreo');
+
+CREATE TABLE Eventos (
+    id_evento INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    fecha_evento DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+);

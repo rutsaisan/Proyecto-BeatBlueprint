@@ -36,37 +36,7 @@ $resultado_videos = mysqli_query($conexion, $query_videos);
             border: 1px solid rgba(255, 255, 255, 0.1); 
             border-radius: 1rem; 
         }
-        video { 
-            border-radius: 0.75rem; 
-            background: black; 
-            width: 100%; 
-            max-height: 300px;
-        }
-        /* Estilo para el contenedor del select */
-        select {
-            appearance: none; /* Quita el diseño por defecto del navegador */
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1rem;
-            padding-right: 2.5rem !important; /* Espacio para la flecha personalizada */
-        }
-
-        /* Estilo para las opciones (el desplegable abierto) */
-        select option {
-            background-color: #1a1a2e; /* Color sólido para que sea legible */
-            color: white;
-            padding: 10px;
-        }
-
-        /* Evitar el color azul feo al seleccionar en algunos navegadores */
-        select:focus {
-            outline: none;
-            border-color: var(--primary-purple);
-            box-shadow: 0 0 0 2px rgba(138, 79, 255, 0.2);
-        }
+        video { border-radius: 0.75rem; background: black; width: 100%; max-height: 300px; }
     </style>
 </head>
 <body class="p-6 md:p-10">
@@ -99,7 +69,12 @@ $resultado_videos = mysqli_query($conexion, $query_videos);
         <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <?php if (mysqli_num_rows($resultado_videos) > 0): ?>
                 <?php while ($vid = mysqli_fetch_assoc($resultado_videos)): ?>
-                    <div class="glass-card p-4 flex flex-col gap-4 animate-fade-in">
+                    <div class="glass-card p-4 flex flex-col gap-4 animate-fade-in relative group">
+                        <button onclick="eliminarRecurso(<?php echo $vid['id_video']; ?>, 'video')" 
+                                class="absolute top-6 right-6 w-8 h-8 rounded-full bg-red-500/20 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500 hover:text-white flex items-center justify-center z-10">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+
                         <video src="<?php echo htmlspecialchars($vid['video']); ?>" controls></video>
                         <div class="px-1">
                             <p class="font-semibold text-sm truncate"><?php echo htmlspecialchars($vid['descripcion']); ?></p>
@@ -117,37 +92,45 @@ $resultado_videos = mysqli_query($conexion, $query_videos);
     </div>
 
     <script>
+        // Función para subir videos
         const videoUpload = document.getElementById('video-upload');
         const estiloSelect = document.getElementById('estilo-select');
 
         videoUpload.addEventListener('change', async function() {
-    const file = this.files[0];
-    if (!file) return;
+            const file = this.files[0];
+            if (!file) return;
 
-    const formData = new FormData();
-    formData.append('video', file);
-    formData.append('id_estilo_baile', estiloSelect.value);
+            const formData = new FormData();
+            formData.append('video', file);
+            formData.append('id_estilo_baile', estiloSelect.value);
 
-    try {
-        const response = await fetch('php/subir_video.php', {
-            method: 'POST',
-            body: formData
+            try {
+                const response = await fetch('php/subir_video.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.success) { location.reload(); }
+                else { alert("Error: " + data.error); }
+            } catch (err) { alert("Error al subir el video."); }
         });
 
-        const rawText = await response.text(); // Capturamos la respuesta como texto primero
-        console.log("Respuesta del servidor:", rawText);
+        // Función para eliminar (Universal)
+        async function eliminarRecurso(id, tipo) {
+            if (!confirm(`¿Borrar este ${tipo} permanentemente?`)) return;
 
-        const data = JSON.parse(rawText);
-        if (data.success) {
-            location.reload(); 
-        } else {
-            alert("Error: " + data.error);
+            try {
+                const response = await fetch('php/eliminar_recurso.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `id=${id}&tipo=${tipo}`
+                });
+                const data = await response.json();
+                if (data.success) { location.reload(); }
+                else { alert("Error al borrar: " + data.error); }
+            } catch (err) { alert("Error de conexión."); }
         }
-    } catch (err) {
-        console.error("Fallo al procesar JSON:", err);
-        alert("El video es demasiado pesado o el servidor dio error. Revisa la consola.");
-    }
-});
+        
     </script>
 </body>
 </html>
