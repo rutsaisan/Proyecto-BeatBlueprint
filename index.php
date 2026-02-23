@@ -26,7 +26,7 @@
         <div class="title-container">
             <h1>Beat Blueprint</h1>
         </div>
-
+          <!-- Enviamos los datos a login.php para confirmar que son correctos y si no es asi sacamos un error para hacerselo saber al usuario -->
         <form action="php/login.php" method="POST" class="login-form">
             <input type="email" name="email" placeholder="Correo..." required>
             <input type="password" name="contrasena" placeholder="Contraseña..." required>

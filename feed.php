@@ -11,7 +11,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 include "includes/config.php";
 $usuario_id = $_SESSION['id'] ?? 1;
 
-// --- CONSULTA PARA LA ÚLTIMA CANCIÓN (AHORA PRIVADA) ---
+// --- CONSULTA PARA LA ÚLTIMA CANCIÓN QUE SUBIO EL USUARIO ---
 // Filtramos por el usuario de la sesión para que no salgan datos de otros
 $sql_cancion = "SELECT nombre_cancion, created_at FROM Canciones WHERE id_usuario = ? ORDER BY id_cancion DESC LIMIT 1";
 $stmt_cancion = $conexion->prepare($sql_cancion);
@@ -20,7 +20,7 @@ $stmt_cancion->execute();
 $res_cancion = $stmt_cancion->get_result();
 $ultima_cancion = $res_cancion->fetch_assoc();
 
-// --- CONSULTA PARA EL ÚLTIMO VIDEO (ESPECÍFICO DEL USUARIO) ---
+// --- CONSULTA PARA EL ÚLTIMO VIDEO QUE SUBIO EL USUARIO ---
 $sql_video = "SELECT descripcion, created_at FROM Videos WHERE id_usuario = ? ORDER BY id_video DESC LIMIT 1";
 $stmt_video = $conexion->prepare($sql_video);
 $stmt_video->bind_param("i", $usuario_id);
@@ -152,11 +152,11 @@ function haceCuanto($fecha) {
             
             <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
                 <div class="bg-blue-500/20 p-2 rounded text-blue-400"><i class="fas fa-music"></i></div>
-                <div>
+                <div> <!-- Sacamos por pantalla la ultima cancion guardada y si no hay nada ponemos "Sin Canciones" -->
                     <p class="font-semibold text-sm">
                         <?php echo $ultima_cancion ? $ultima_cancion['nombre_cancion'] : "Sin canciones"; ?>
                     </p>
-                    <p class="text-xs text-gray-400">
+                    <p class="text-xs text-gray-400"> <!-- Si hat canciones mostramos la fecga de cuando si no haty nada mostraos otro mensaje -->
                         <?php echo $ultima_cancion ? "Añadida: " . haceCuanto($ultima_cancion['created_at']) : "Sube tu primer track"; ?>
                     </p>
                 </div>
@@ -165,7 +165,7 @@ function haceCuanto($fecha) {
             <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
                 <div class="bg-green-500/20 p-2 rounded text-green-400"><i class="fas fa-video"></i></div>
                 <div>
-                    <p class="font-semibold text-sm">
+                    <p class="font-semibold text-sm"> <!-- Repetimos el mismo proceso pero con los videos" -->
                         <?php echo $ultimo_video ? $ultimo_video['descripcion'] : "Sin videos nuevos"; ?>
                     </p>
                     <p class="text-xs text-gray-400">
@@ -173,7 +173,7 @@ function haceCuanto($fecha) {
                     </p>
                 </div>
             </div>
-
+              <!-- Mostramos una frase aleatoria -->
             <div class="bg-purple-900/30 p-3 rounded-lg text-center mt-4">
                 <p id="frase-display" class="text-sm text-purple-200">
                     Cargando inspiración...
@@ -198,7 +198,7 @@ function haceCuanto($fecha) {
         <span class="font-medium text-sm">Vidioteca</span>
     </a>
 
-    <a href="wiki.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-yellow-500">
+    <a href="wiki.html" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-yellow-500">
         <i class="fas fa-book text-3xl text-yellow-400"></i>
         <span class="font-medium text-sm">Wiki Pasos</span>
     </a>
@@ -208,35 +208,6 @@ function haceCuanto($fecha) {
              <a href="index.php" class="text-gray-400 text-xs hover:text-white">Cerrar Sesión</a>
         </div>
     </div>
-
-    <div id="screen-music" class="screen">
-        <button onclick="navigate('screen-dashboard')" class="mb-4 text-gray-400 hover:text-white"><i class="fas fa-arrow-left"></i> Volver</button>
-        <h2 class="text-3xl font-bold mb-6">Tu Música</h2>
-        <div class="glass-card p-6 mb-6 text-center">
-            <div class="w-32 h-32 bg-gray-700 rounded-lg mx-auto mb-4 flex items-center justify-center shadow-lg">
-                <i class="fas fa-music text-4xl text-gray-500"></i>
-            </div>
-            <h3 class="text-xl font-bold">Urbano Mix Vol. 1</h3>
-            <p class="text-gray-400 text-sm mb-4">Importado localmente</p>
-            <div class="w-full bg-gray-700 h-1 rounded-full mb-4">
-                <div class="bg-purple-500 h-1 rounded-full w-1/3"></div>
-            </div>
-            <div class="flex justify-center gap-6 text-2xl items-center">
-                <i class="fas fa-backward text-gray-400"></i>
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-purple-900 cursor-pointer hover:scale-105 transition"><i class="fas fa-play pl-1"></i></div>
-                <i class="fas fa-forward text-gray-400"></i>
-            </div>
-        </div>
-        <h3 class="font-bold mb-3">Guardadas</h3>
-        <div class="space-y-3">
-            <div class="glass-card p-3 flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gray-700 rounded flex items-center justify-center text-xs">MP3</div>
-                    <div>
-                        <p class="font-bold text-sm">Coreografía Final</p>
-                        <p class="text-xs text-gray-400">3:45</p>
-                    </div>
-                </div>
 
 <?php
 session_start();
