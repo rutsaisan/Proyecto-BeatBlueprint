@@ -101,3 +101,23 @@ CREATE TABLE Eventos (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
 );
+
+-- Tabla para la cabecera de la formación
+CREATE TABLE Formaciones (
+    id_formacion INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_posicion VARCHAR(100) NOT NULL,
+    tipo_formacion VARCHAR(50),
+    id_usuario INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario) ON DELETE CASCADE
+);
+
+-- Tabla para los puntos (bailarines) dentro de esa formación
+CREATE TABLE Posiciones_Bailarines (
+    id_posicion INT AUTO_INCREMENT PRIMARY KEY,
+    id_formacion INT NOT NULL,
+    nombre_bailarin VARCHAR(50),
+    coord_x VARCHAR(20),
+    coord_y VARCHAR(20),
+    FOREIGN KEY (id_formacion) REFERENCES Formaciones(id_formacion) ON DELETE CASCADE
+);
