@@ -22,6 +22,8 @@ CREATE TABLE Usuarios (
     FOREIGN KEY (id_estilo_baile) REFERENCES Estilo_baile(id_estilo_baile) ON DELETE SET NULL
 );
 
+ALTER TABLE Usuarios ADD COLUMN foto_perfil VARCHAR(255) DEFAULT 'assets/img/default-avatar.png';
+
 
 CREATE TABLE Wikipasos (
     id_paso INT AUTO_INCREMENT PRIMARY KEY,
@@ -121,3 +123,4 @@ CREATE TABLE Posiciones_Bailarines (
     coord_y VARCHAR(20),
     FOREIGN KEY (id_formacion) REFERENCES Formaciones(id_formacion) ON DELETE CASCADE
 );
+

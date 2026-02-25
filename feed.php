@@ -28,6 +28,14 @@ $stmt_video->execute();
 $res_video = $stmt_video->get_result();
 $ultimo_video = $res_video->fetch_assoc();
 
+// --- CONSULTA: OBTENER DATOS DEL USUARIO (FOTO) ---
+$sql_user = "SELECT foto_perfil FROM Usuarios WHERE id_usuario = ?";
+$stmt_user = $conexion->prepare($sql_user);
+$stmt_user->bind_param("i", $usuario_id);
+$stmt_user->execute();
+$res_user = $stmt_user->get_result();
+$user_data = $res_user->fetch_assoc();
+
 // Función auxiliar para formatear fechas relativas
 function haceCuanto($fecha) {
     if(!$fecha) return "No hay actividad";
@@ -141,9 +149,13 @@ function haceCuanto($fecha) {
     <div id="screen-dashboard" class="screen active">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold italic">Beat Blueprint</h2>
-            <div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center border-2 border-white">
-                <i class="fas fa-user"></i>
-            </div>
+            <a href="perfil.php" class="w-10 h-10 rounded-full overflow-hidden border-2 border-white flex items-center justify-center bg-purple-600 hover:scale-110 transition shadow-lg">
+                <?php if (!empty($user_data['foto_perfil']) && file_exists($user_data['foto_perfil'])): ?>
+                    <img src="<?php echo $user_data['foto_perfil']; ?>" class="w-full h-full object-cover">
+                <?php else: ?>
+                    <i class="fas fa-user text-white"></i>
+                <?php endif; ?>
+            </a>
         </div>
 
             <div class="glass-card p-4 mb-8 flex-grow">
