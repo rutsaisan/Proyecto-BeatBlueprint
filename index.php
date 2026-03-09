@@ -19,6 +19,12 @@
 </head>
 
 <body>
+    <div class="fixed top-4 right-4 z-50">
+        <select id="language-selector" class="bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full px-3 py-1 text-xs outline-none cursor-pointer hover:bg-white/20 transition">
+            <option value="es" class="bg-slate-900">ESP</option>
+            <option value="en" class="bg-slate-900">ENG</option>
+        </select>
+    </div>
     <div class="main-container">
         <div class="logo-container">
             <img src="logo.png" alt="Logo" class="logo">

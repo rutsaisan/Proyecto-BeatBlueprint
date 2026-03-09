@@ -111,40 +111,54 @@ function haceCuanto($fecha) {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Canvas Stage */
-        #stage-area {
-            background-image: linear-gradient(#333 1px, transparent 1px), linear-gradient(90deg, #333 1px, transparent 1px);
-            background-size: 40px 40px;
-            background-color: #1a1a20;
-            border: 2px solid #444;
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
-        }
-        .dancer-token {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-purple);
-            border: 2px solid white;
-            border-radius: 50%;
-            position: absolute;
+        /* Selector de Idioma Estilizado */
+        .language-pill {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 4px 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            cursor: grab;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            user-select: none;
-            touch-action: none;
+            gap: 8px;
+            transition: all 0.3s ease;
         }
-        .dancer-token:active {
-            cursor: grabbing;
-            transform: scale(1.1);
+
+        .language-pill:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 15px rgba(138, 79, 255, 0.3);
+        }
+
+        #language-selector {
+            background: transparent;
+            color: white;
+            border: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            text-align: center;
+        }
+
+        #language-selector option {
+            background: #1a1a2e;
+            color: white;
         }
     </style>
 </head>
 <body>
+    <div class="fixed top-6 right-20 z-50">
+        <div class="language-pill">
+            <i class="fas fa-globe-americas text-[10px] text-purple-400"></i>
+            <select id="language-selector">
+                <option value="es">ESP</option>
+                <option value="en">ENG</option>
+            </select>
+        </div>
+    </div>
 
     <div id="screen-dashboard" class="screen active">
         <div class="flex justify-between items-center mb-6">
@@ -158,81 +172,90 @@ function haceCuanto($fecha) {
             </a>
         </div>
 
-            <div class="glass-card p-4 mb-8 flex-grow">
-        <h3 class="text-gray-300 text-sm mb-3 border-b border-gray-600 pb-2">Tus últimas actividades</h3>
-        <div class="space-y-3">
-            
-            <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
-                <div class="bg-blue-500/20 p-2 rounded text-blue-400"><i class="fas fa-music"></i></div>
-                <div> <!-- Sacamos por pantalla la ultima cancion guardada y si no hay nada ponemos "Sin Canciones" -->
-                    <p class="font-semibold text-sm">
-                        <?php echo $ultima_cancion ? $ultima_cancion['nombre_cancion'] : "Sin canciones"; ?>
-                    </p>
-                    <p class="text-xs text-gray-400"> <!-- Si hat canciones mostramos la fecga de cuando si no haty nada mostraos otro mensaje -->
-                        <?php echo $ultima_cancion ? "Añadida: " . haceCuanto($ultima_cancion['created_at']) : "Sube tu primer track"; ?>
-                    </p>
+        <div class="glass-card p-4 mb-8 flex-grow">
+            <h3 data-i18n="activity_title" class="text-gray-300 text-sm mb-3 border-b border-gray-600 pb-2">Tus últimas actividades</h3>
+            <div class="space-y-3">
+                
+                <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
+                    <div class="bg-blue-500/20 p-2 rounded text-blue-400"><i class="fas fa-music"></i></div>
+                    <div>
+                        <p class="font-semibold text-sm">
+                            <?php echo $ultima_cancion ? $ultima_cancion['nombre_cancion'] : "Sin canciones"; ?>
+                        </p>
+                        <p class="text-xs text-gray-400">
+                            <?php echo $ultima_cancion ? "Añadida: " . haceCuanto($ultima_cancion['created_at']) : "Sube tu primer track"; ?>
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
-                <div class="bg-green-500/20 p-2 rounded text-green-400"><i class="fas fa-video"></i></div>
-                <div>
-                    <p class="font-semibold text-sm"> <!-- Repetimos el mismo proceso pero con los videos" -->
-                        <?php echo $ultimo_video ? $ultimo_video['descripcion'] : "Sin videos nuevos"; ?>
-                    </p>
-                    <p class="text-xs text-gray-400">
-                        <?php echo $ultimo_video ? "Subido: " . haceCuanto($ultimo_video['created_at']) : "Registra tu ensayo"; ?>
+                <div class="flex items-center gap-3 p-2 hover:bg-white/5 rounded-lg transition">
+                    <div class="bg-green-500/20 p-2 rounded text-green-400"><i class="fas fa-video"></i></div>
+                    <div>
+                        <p class="font-semibold text-sm">
+                            <?php echo $ultimo_video ? $ultimo_video['descripcion'] : "Sin videos nuevos"; ?>
+                        </p>
+                        <p class="text-xs text-gray-400">
+                            <?php echo $ultimo_video ? "Subido: " . haceCuanto($ultimo_video['created_at']) : "Registra tu ensayo"; ?>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-purple-900/30 p-3 rounded-lg text-center mt-4">
+                    <p id="frase-display" class="text-sm text-purple-200">
+                        Cargando inspiración...
                     </p>
                 </div>
-            </div>
-              <!-- Mostramos una frase aleatoria -->
-            <div class="bg-purple-900/30 p-3 rounded-lg text-center mt-4">
-                <p id="frase-display" class="text-sm text-purple-200">
-                    Cargando inspiración...
-                </p>
             </div>
         </div>
-    </div>
 
         <div class="grid grid-cols-2 gap-4 mt-auto mb-6">
-    <a href="musica.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-purple-500">
-        <i class="fas fa-music text-3xl text-purple-400"></i>
-        <span class="font-medium text-sm">Música</span>
-    </a>
-    
-    <a href="posiciones.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-blue-500">
-        <i class="fas fa-map-marker-alt text-3xl text-blue-400"></i>
-        <span class="font-medium text-sm">Posiciones</span>
-    </a>
+            <a href="musica.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-purple-500">
+                <i class="fas fa-music text-3xl text-purple-400"></i>
+                <span data-i18n="menu_music" class="font-medium text-sm">Música</span>
+            </a>
+            
+            <a href="posiciones.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-blue-500">
+                <i class="fas fa-map-marker-alt text-3xl text-blue-400"></i>
+                <span data-i18n="menu_pos" class="font-medium text-sm">Posiciones</span>
+            </a>
 
-    <a href="vidioteca.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-pink-500">
-        <i class="fas fa-play-circle text-3xl text-pink-400"></i>
-        <span class="font-medium text-sm">Vidioteca</span>
-    </a>
+            <a href="vidioteca.php" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-pink-500">
+                <i class="fas fa-play-circle text-3xl text-pink-400"></i>
+                <span data-i18n="menu_vid" class="font-medium text-sm">Vidioteca</span>
+            </a>
 
-    <a href="wiki.html" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-yellow-500">
-        <i class="fas fa-book text-3xl text-yellow-400"></i>
-        <span class="font-medium text-sm">Wiki Pasos</span>
-    </a>
-</div>
+            <a href="wiki.html" class="glass-card p-6 flex flex-col items-center justify-center gap-3 active:scale-95 transition cursor-pointer hover:bg-white/10 border-t-4 border-yellow-500">
+                <i class="fas fa-book text-3xl text-yellow-400"></i>
+                <span data-i18n="menu_wiki" class="font-medium text-sm">Wiki Pasos</span>
+            </a>
+        </div>
         
         <div class="text-center pb-4">
-             <a href="index.php" class="text-gray-400 text-xs hover:text-white">Cerrar Sesión</a>
+             <a data-i18n="logout" href="index.php" class="text-gray-400 text-xs hover:text-white">Cerrar Sesión</a>
         </div>
     </div>
 
-<?php
-session_start();
-
-// Si no existe la variable de sesión 'loggedin', redirigir al login
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: index.php");
-    exit;
-}
-?>
-</body>
 <script>
-    // Tu lista de frases personalizada
+    // Diccionario de traducciones
+    const translations = {
+        es: {
+            activity_title: "Tus últimas actividades",
+            menu_music: "Música",
+            menu_pos: "Posiciones",
+            menu_vid: "Vidioteca",
+            menu_wiki: "Wiki Pasos",
+            logout: "Cerrar Sesión"
+        },
+        en: {
+            activity_title: "Your latest activities",
+            menu_music: "Music",
+            menu_pos: "Formations",
+            menu_vid: "Video Library",
+            menu_wiki: "Step Wiki",
+            logout: "Logout"
+        }
+    };
+
     const frasesDanza = [
         "La danza es el lenguaje oculto del alma.",
         "No intentes bailar mejor que nadie. Intenta bailar mejor que tú mismo.",
@@ -263,17 +286,32 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
     function generarFrase() {
         const display = document.getElementById('frase-display');
-        
-        // Generamos un índice aleatorio basado en la longitud del array
         const indiceAleatorio = Math.floor(Math.random() * frasesDanza.length);
-        
-        // Mostramos la frase
         display.innerText = `"${frasesDanza[indiceAleatorio]}"`;
     }
 
-    // Ejecutamos la función al cargar la página
+    function setLanguage(lang) {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
+        });
+        localStorage.setItem('preferredLang', lang);
+    }
+
+    const langSelector = document.getElementById('language-selector');
+    
+    langSelector.addEventListener('change', (e) => {
+        setLanguage(e.target.value);
+    });
+
     window.onload = function() {
         generarFrase();
-        // Si tienes más funciones que se cargan al inicio, asegúrate de llamarlas aquí también
+        const savedLang = localStorage.getItem('preferredLang') || 'es';
+        langSelector.value = savedLang;
+        setLanguage(savedLang);
     };
 </script>
+</body>
+</html>
