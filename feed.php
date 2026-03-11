@@ -156,6 +156,8 @@ function haceCuanto($fecha) {
             <select id="language-selector">
                 <option value="es">ESP</option>
                 <option value="en">ENG</option>
+                <option value="val">VAL</option>
+
             </select>
         </div>
     </div>
@@ -253,6 +255,14 @@ function haceCuanto($fecha) {
             menu_vid: "Video Library",
             menu_wiki: "Step Wiki",
             logout: "Logout"
+        },
+        val: {
+            activity_title: "Les teues últimes activitats",
+            menu_music: "Musica",
+            menu_pos: "Formacions",
+            menu_vid: "Videoteca",
+            menu_wiki: "Wiki de passos",
+            logout: "Tancar Sessió"
         }
     };
 
